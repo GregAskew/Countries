@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E364E186-D14C-4F85-BCCD-EA508A3F5938}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Countries.DomainModel</RootNamespace>
+    <AssemblyName>Countries.DomainModel</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Extensions">
+      <HintPath>lib\Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Countries\DomainModel\CountriesEntityManager.cs" />
+    <Compile Include="Countries\DomainModel\EntityClasses\CallingCode.cs" />
+    <Compile Include="Countries\DomainModel\EntityClasses\Continent.cs" />
+    <Compile Include="Countries\DomainModel\CountriesEntities.cs" />
+    <Compile Include="Countries\DomainModel\EntityClasses\Country.cs" />
+    <Compile Include="Countries\DomainModel\EntityClasses\CountryCurrencyInfo.cs" />
+    <Compile Include="Countries\DomainModel\EntityClasses\CountryInfo.cs" />
+    <Compile Include="Countries\DomainModel\EntityClasses\CountryTimeZoneInfo.cs" />
+    <Compile Include="Countries\DomainModel\EntityClasses\Currency.cs" />
+    <Compile Include="Countries\DomainModel\EntityClasses\EntityBase.cs" />
+    <Compile Include="Countries\DomainModel\Interfaces\ICountryTimeZoneInfo.cs" />
+    <Compile Include="Countries\DomainModel\Interfaces\ITimeZone.cs" />
+    <Compile Include="Countries\DomainModel\EntityClasses\TimeZone.cs" />
+    <Compile Include="Countries\DomainModel\Interfaces\ICountryInfo.cs" />
+    <Compile Include="Countries\DomainModel\Interfaces\ICountryCurrencyInfo.cs" />
+    <Compile Include="Countries\DomainModel\Interfaces\ICurrency.cs" />
+    <Compile Include="Countries\DomainModel\Interfaces\ICallingCode.cs" />
+    <Compile Include="Countries\DomainModel\Interfaces\ICountry.cs" />
+    <Compile Include="Countries\DomainModel\Interfaces\IContinent.cs" />
+    <Compile Include="Countries\DomainModel\Enums.cs" />
+    <Compile Include="Countries\DomainModel\EnumValidationAttribute.cs" />
+    <Compile Include="Countries\DomainModel\Interfaces\ICountriesEntityManager.cs" />
+    <Compile Include="Countries\DomainModel\Interfaces\IEntityBase.cs" />
+    <Compile Include="Countries\DomainModel\Interfaces\IObjectWithState.cs" />
+    <Compile Include="Countries\DomainModel\Interfaces\IRepository.cs" />
+    <Compile Include="Countries\DomainModel\Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Countries\DomainModel\InternalExtensions.cs" />
+    <Compile Include="Countries\DomainModel\ObjectShredder.cs" />
+    <Compile Include="Countries\DomainModel\TransactionManagerHelper.cs" />
+    <Compile Include="Countries\DomainModel\GlobalSuppressions.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
