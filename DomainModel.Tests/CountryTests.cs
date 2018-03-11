@@ -8,6 +8,7 @@
     using System.Data.Entity;
     using System.Data.Entity.Core.Objects.DataClasses;
     using System.Data.SqlClient;
+    using System.Diagnostics;
     using System.Linq;
     using System.Text;
     using System.Threading;
@@ -35,6 +36,9 @@
         private string countryOfficialNameCreate = "Fake Official Name Create";
         private string countryOfficialNameUpdate = "Fake Official Name Update";
         private string countryOfficialNameDelete = "Fake Official Name Delete";
+        private string countryOfficialNameLocalCreate = "Fake Official Name Local Create";
+        private string countryOfficialNameLocalUpdate = "Fake Official Name Local Update";
+        private string countryOfficialNameLocalDelete = "Fake Official Name Local Delete";
         private string countryNameCreate = "Fake Name Create";
         private string countryNameUpdate = "Fake Name Update";
         private string countryNameDelete = "Fake Name Delete";
@@ -129,7 +133,29 @@
                     var proxy = country as IEntityWithChangeTracker;
                     Assert.IsNotNull(proxy);
 
-                    Assert.IsTrue(country.StringPropertiesAreTrim());
+                    try {
+                        Assert.IsTrue(country.StringPropertiesAreTrim());
+                    }
+                    catch (Exception e) {
+                        Debug.WriteLine($"Country: {country.ToCSVString()}");
+                        throw;
+                    }
+
+                    try {
+                        Assert.IsFalse(country.ToCSVString().Contains("ʻ"));
+                    }
+                    catch (Exception e) {
+                        Debug.WriteLine($"Country: {country.ToCSVString()}");
+                        throw;
+                    }
+
+                    try {
+                        Assert.IsFalse(country.ToCSVString().Contains("’"));
+                    }
+                    catch (Exception e) {
+                        Debug.WriteLine($"Country: {country.ToCSVString()}");
+                        throw;
+                    }
                 }
             }
         }
@@ -157,7 +183,8 @@
                 ISOName = countryISONameCreate,
                 ISONumeric = countryISONumericCreate,
                 Name = countryNameCreate,
-                OfficialName = countryOfficialNameCreate
+                OfficialName = countryOfficialNameCreate,
+                OfficialNameLocal = countryOfficialNameLocalCreate
             };
 
             using (var entityManager = new CountriesEntityManager()) {
@@ -207,7 +234,8 @@
                 ISOName = countryISONameUpdate,
                 ISONumeric = countryISONumericUpdate,
                 Name = countryNameUpdate,
-                OfficialName = countryOfficialNameUpdate
+                OfficialName = countryOfficialNameUpdate,
+                OfficialNameLocal = countryOfficialNameLocalUpdate
             };
 
             using (var entityManager = new CountriesEntityManager()) {
@@ -259,7 +287,8 @@
                 ISOName = countryISONameDelete,
                 ISONumeric = countryISONumericDelete,
                 Name = countryNameDelete,
-                OfficialName = countryOfficialNameDelete
+                OfficialName = countryOfficialNameDelete,
+                OfficialNameLocal = countryOfficialNameLocalDelete
             };
 
             using (var entityManager = new CountriesEntityManager()) {
@@ -313,6 +342,7 @@
             country.ISONumeric = null;
             country.Name = null;
             country.OfficialName = null;
+            country.OfficialNameLocal = null;
 
              var validationResults = Get_Validation_Results(country);
 
@@ -335,6 +365,8 @@
                 x => x.MemberNames.Any(y => string.Equals(y, "Name", StringComparison.OrdinalIgnoreCase))));
             Assert.IsTrue(validationResults.Any(
                 x => x.MemberNames.Any(y => string.Equals(y, "OfficialName", StringComparison.OrdinalIgnoreCase))));
+            Assert.IsTrue(validationResults.Any(
+                x => x.MemberNames.Any(y => string.Equals(y, "OfficialNameLocal", StringComparison.OrdinalIgnoreCase))));
 
             country.ISO2 = "xx";
             country.ISO3 = "xxx";

@@ -18,13 +18,13 @@ namespace Countries.DomainModel {
 
         #region Fields
         private const int DatabaseIdentitySeedStart = 30001;
-        public const string CSVString = "Id,ISO2,ISO3,ISONumeric,ISOName,Name,OfficialName,Capital,Continent,CallingCode";
+        public const string CSVString = "Id,ISO2,ISO3,ISONumeric,ISOName,Name,OfficialName,OfficialNameLocal,Capital,Continent,CallingCode";
         #endregion
 
         /// <summary>
         /// The country's capital city.
         /// </summary>
-        [Column(TypeName = "varchar")]
+        [Column(TypeName = "nvarchar")]
         [StringLength(255)]
         [Required(AllowEmptyStrings = true)]
         public virtual string Capital { get; set; }
@@ -96,6 +96,14 @@ namespace Countries.DomainModel {
         [StringLength(255)]
         [Required]
         public virtual string OfficialName { get; set; }
+
+        /// <summary>
+        /// The country official name localized.
+        /// </summary>
+        [Column(TypeName = "nvarchar")]
+        [StringLength(255)]
+        [Required]
+        public virtual string OfficialNameLocal { get; set; }
 
         [Timestamp]
         public virtual byte[] RowVersion { get; set; }
@@ -180,6 +188,7 @@ namespace Countries.DomainModel {
             this.ISONumeric = string.Empty;
             this.Name = string.Empty;
             this.OfficialName = string.Empty;
+            this.OfficialNameLocal = string.Empty;
         }
         #endregion
 
@@ -196,6 +205,7 @@ namespace Countries.DomainModel {
             info.AppendFormat("\"{0}\",", this.ISOName ?? "NULL");
             info.AppendFormat("\"{0}\",", this.Name ?? "NULL");
             info.AppendFormat("\"{0}\",", this.OfficialName ?? "NULL");
+            info.AppendFormat("\"{0}\",", this.OfficialNameLocal ?? "NULL");
             info.AppendFormat("\"{0}\",", this.Capital ?? "NULL");
             info.AppendFormat("\"{0}\",", this.Continent != null ? this.Continent.Name ?? "NULL" : "NULL");
             info.AppendFormat("\"{0}\"", this.CallingCode != null ? this.CallingCode.CallingCodeNumber.ToString() : "NULL");
@@ -214,6 +224,7 @@ namespace Countries.DomainModel {
             info.AppendFormat("ISONumeric: {0}; ", this.ISONumeric ?? "NULL");
             info.AppendFormat("ISOName: {0}; ", this.ISOName ?? "NULL");
             info.AppendFormat("OfficialName: {0}; ", this.OfficialName ?? "NULL");
+            info.AppendFormat("OfficialNameLocal: {0}; ", this.OfficialNameLocal ?? "NULL");
             info.AppendFormat("CallingCodeNumber: {0}; ", this.CallingCode != null ? this.CallingCode.CallingCodeNumber.ToString() : "NULL");
             info.AppendFormat("Continent: {0}; ", this.Continent != null ? this.Continent.Name ?? "NULL" : "NULL");
 
@@ -274,6 +285,11 @@ namespace Countries.DomainModel {
                 foreach (var validationResult in base.ValidateProperty(this.OfficialName, "OfficialName")) {
                     yield return validationResult;
                 }
+
+                foreach (var validationResult in base.ValidateProperty(this.OfficialNameLocal, "OfficialNameLocal")) {
+                    yield return validationResult;
+                }
+
             }
 
             foreach (var result in base.Validate(validationContext)) {

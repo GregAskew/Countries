@@ -11,6 +11,7 @@
         string ISONumeric { get; set; }
         string Name { get; set; }
         string OfficialName { get; set; }
+        string OfficialNameLocal { get; set; }
         byte[] RowVersion { get; set; }
 
         CallingCode CallingCode { get; set; }
