@@ -85,6 +85,7 @@
     <Compile Include="Countries\DomainModel\Interfaces\IUnitOfWork.cs" />
     <Compile Include="Countries\DomainModel\InternalExtensions.cs" />
     <Compile Include="Countries\DomainModel\ObjectShredder.cs" />
+    <Compile Include="Countries\DomainModel\Repository.cs" />
     <Compile Include="Countries\DomainModel\TransactionManagerHelper.cs" />
     <Compile Include="Countries\DomainModel\GlobalSuppressions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
